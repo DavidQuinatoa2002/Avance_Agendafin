@@ -1,7 +1,7 @@
-package com.example.application.views;
+package com.contactos.views;
 
-import com.example.application.views.agenda.AgendaView;
-import com.example.application.views.contacto.ContactoView;
+import com.contactos.views.agenda.AgendaView;
+import com.contactos.views.contacto.ContactoView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;

@@ -1,6 +1,6 @@
-package com.example.application.views.agenda;
+package com.contactos.views.agenda;
 
-import com.example.application.views.MainLayout;
+import com.contactos.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.H2;

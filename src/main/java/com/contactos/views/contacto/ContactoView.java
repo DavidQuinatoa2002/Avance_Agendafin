@@ -1,6 +1,6 @@
-package com.example.application.views.contacto;
+package com.contactos.views.contacto;
 
-import com.example.application.views.MainLayout;
+import com.contactos.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -21,20 +21,25 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 @Uses(Icon.class)
 public class ContactoView extends Composite<VerticalLayout> {
 
+    private TextField nombreTextField;
+    private TextField celularTextField;
+    private EmailField emailField;
+    private TextField idTextField;
+
     public ContactoView() {
         HorizontalLayout layoutRow = new HorizontalLayout();
         H2 h2 = new H2();
+        nombreTextField = new TextField("Nombre");
+        celularTextField = new TextField("Celular");
+        emailField = new EmailField("Email");
+        idTextField = new TextField("ID");
         HorizontalLayout layoutRow2 = new HorizontalLayout();
-        TextField textField = new TextField();
-        TextField textField2 = new TextField();
         HorizontalLayout layoutRow3 = new HorizontalLayout();
-        EmailField emailField = new EmailField();
-        TextField textField3 = new TextField();
         HorizontalLayout layoutRow4 = new HorizontalLayout();
-        Button buttonPrimary = new Button();
-        Button buttonSecondary = new Button();
         Hr hr = new Hr();
         VerticalLayout layoutColumn2 = new VerticalLayout();
+        Button buttonPrimary = new Button("Guardar");
+        Button buttonSecondary = new Button("Cancelar");
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         layoutRow.addClassName(Gap.MEDIUM);
@@ -47,10 +52,10 @@ public class ContactoView extends Composite<VerticalLayout> {
         layoutRow2.addClassName(Gap.MEDIUM);
         layoutRow2.setWidth("100%");
         layoutRow2.getStyle().set("flex-grow", "1");
-        textField.setLabel("Nombre");
-        textField.setWidth("min-content");
-        textField2.setLabel("Celular");
-        textField2.setWidth("min-content");
+        nombreTextField.setLabel("Nombre");
+        nombreTextField.setWidth("min-content");
+        celularTextField.setLabel("Celular");
+        celularTextField.setWidth("min-content");
         layoutRow3.setWidthFull();
         getContent().setFlexGrow(1.0, layoutRow3);
         layoutRow3.addClassName(Gap.MEDIUM);
@@ -58,13 +63,15 @@ public class ContactoView extends Composite<VerticalLayout> {
         layoutRow3.getStyle().set("flex-grow", "1");
         emailField.setLabel("Email");
         emailField.setWidth("min-content");
-        textField3.setLabel("ID");
-        textField3.setWidth("min-content");
+        idTextField.setLabel("ID");
+        idTextField.setWidth("min-content");
         layoutRow4.setWidthFull();
         getContent().setFlexGrow(1.0, layoutRow4);
         layoutRow4.addClassName(Gap.MEDIUM);
         layoutRow4.setWidth("100%");
         layoutRow4.getStyle().set("flex-grow", "1");
+        buttonPrimary.addClickListener(event -> guardarContacto());
+        buttonSecondary.addClickListener(event -> cancelarEdicion());
         buttonPrimary.setText("Guardar");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -77,15 +84,27 @@ public class ContactoView extends Composite<VerticalLayout> {
         getContent().add(layoutRow);
         layoutRow.add(h2);
         getContent().add(layoutRow2);
-        layoutRow2.add(textField);
-        layoutRow2.add(textField2);
+        layoutRow2.add(nombreTextField);
+        layoutRow2.add(celularTextField);
         getContent().add(layoutRow3);
         layoutRow3.add(emailField);
-        layoutRow3.add(textField3);
+        layoutRow3.add(idTextField);
         getContent().add(layoutRow4);
         layoutRow4.add(buttonPrimary);
         layoutRow4.add(buttonSecondary);
         getContent().add(hr);
         getContent().add(layoutColumn2);
+
+    }
+    private void guardarContacto() {
+        String nombre = nombreTextField.getValue();
+        String celular = celularTextField.getValue();
+        String email = emailField.getValue();
+    }
+    private void cancelarEdicion(){
+        nombreTextField.clear();
+        celularTextField.clear();
+        emailField.clear();
+        idTextField.clear();
     }
 }
