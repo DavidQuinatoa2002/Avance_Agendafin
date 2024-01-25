@@ -1,5 +1,7 @@
 package com.contactos.views.contacto;
 
+import com.contactos.models.Contacto;
+import com.contactos.services.ContactoService;
 import com.contactos.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -12,27 +14,32 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("Contacto")
 @Route(value = "contacto", layout = MainLayout.class)
 @Uses(Icon.class)
-public class ContactoView extends Composite<VerticalLayout> {
+public class ContactoView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
+
+    private ContactoService contactoService;
+
 
     private TextField nombreTextField;
     private TextField celularTextField;
     private EmailField emailField;
     private TextField idTextField;
 
-    public ContactoView() {
+    public ContactoView(ContactoService contactoService) {
+        this.contactoService=contactoService;
+        Contacto contacto1= new Contacto();
+
         HorizontalLayout layoutRow = new HorizontalLayout();
         H2 h2 = new H2();
         nombreTextField = new TextField("Nombre");
         celularTextField = new TextField("Celular");
         emailField = new EmailField("Email");
-        idTextField = new TextField("ID");
+        idTextField = new TextField("Codigo");
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         HorizontalLayout layoutRow3 = new HorizontalLayout();
         HorizontalLayout layoutRow4 = new HorizontalLayout();
@@ -63,18 +70,39 @@ public class ContactoView extends Composite<VerticalLayout> {
         layoutRow3.getStyle().set("flex-grow", "1");
         emailField.setLabel("Email");
         emailField.setWidth("min-content");
-        idTextField.setLabel("ID");
+        idTextField.setLabel("Codigo");
         idTextField.setWidth("min-content");
         layoutRow4.setWidthFull();
         getContent().setFlexGrow(1.0, layoutRow4);
         layoutRow4.addClassName(Gap.MEDIUM);
         layoutRow4.setWidth("100%");
         layoutRow4.getStyle().set("flex-grow", "1");
-        buttonPrimary.addClickListener(event -> guardarContacto());
-        buttonSecondary.addClickListener(event -> cancelarEdicion());
         buttonPrimary.setText("Guardar");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary.addClickListener(event ->{
+
+            String nombre = nombreTextField.getValue();
+            String celular= celularTextField.getValue();
+            String email = emailField.getValue();
+            String codigo= idTextField.getValue();
+
+            if (!nombre.isEmpty() && !celular.isEmpty() && !email.isEmpty() && !codigo.isEmpty()) {
+                contacto1.setNombre(nombre);
+                contacto1.setCelular(celular);
+                contacto1.setEmail(email);
+                contacto1.setCodigo(codigo);
+
+                contactoService.agregarContacto(contacto1);
+
+                // Navegar a la vista de clientes después de guardar
+                getUI().ifPresent(ui -> ui.navigate("agenda"));
+            } else {
+                System.out.println("Ingrese datos correctos");
+            }
+        });
+
+
         buttonSecondary.setText("Cancelar");
         buttonSecondary.setWidth("min-content");
         layoutColumn2.setWidthFull();
@@ -95,16 +123,15 @@ public class ContactoView extends Composite<VerticalLayout> {
         getContent().add(hr);
         getContent().add(layoutColumn2);
 
+
+
+
+
     }
-    private void guardarContacto() {
-        String nombre = nombreTextField.getValue();
-        String celular = celularTextField.getValue();
-        String email = emailField.getValue();
+
+    @Override
+    public void setParameter(BeforeEvent beforeEvent,@OptionalParameter String s) {
+
     }
-    private void cancelarEdicion(){
-        nombreTextField.clear();
-        celularTextField.clear();
-        emailField.clear();
-        idTextField.clear();
-    }
+
 }

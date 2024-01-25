@@ -1,4 +1,4 @@
-/*
+
 package com.contactos.services;
 
 
@@ -32,7 +32,7 @@ public class ContactoService {
     public Contacto obtenerid (String id){
         Contacto contacto = null;
         try {
-            contacto=contactoRepository.findByCedula(id);
+            contacto=contactoRepository.findByEmail(id);
         }catch (Exception ex){
             System.out.println("No se encontro un contacto con esa cedula");
         }
@@ -47,29 +47,13 @@ public class ContactoService {
         }
     }
 
-    public void borrarContacto(String cedula){
+    public void borrarContacto(String email){
         try{
-            Contacto contacto = contactoRepository.findByCedula(cedula);
+            Contacto contacto = contactoRepository.findByEmail(email);
             contactoRepository.delete(contacto);
         }catch (Exception ex){
             System.out.println("No se puede encontrar el contacto a borrar");
         }
     }
 
-    public void editarContacto(String cedula, Contacto contacto){
-        try{
-            Contacto contactoEditar = contactoRepository.findByCedula(cedula);
-            if(contactoEditar!=null){
-                contactoEditar.setNombre(contacto.getNombre());
-                contactoEditar.setcelular(contacto.getcelular());
-                contactoEditar.setemail(contacto.getemail());
-                contactoRepository.save(contactoEditar);
-            }
-        }catch (Exception ex){
-            System.out.println("No se puede encontrar el contacto a ser editado");
-        }
-    }
-
-
 }
-*/

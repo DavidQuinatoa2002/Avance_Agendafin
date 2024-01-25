@@ -1,4 +1,4 @@
-/*
+
 package com.contactos.models;
 
 import org.springframework.data.annotation.Id;
@@ -12,17 +12,19 @@ public class Contacto {
     private String id;
     private String nombre;
 
-    @Indexed(name="id",unique = true)
-    private String id;
-
+    private String codigo;
+    @Indexed(name="email",unique = true)
     private String email;
     private String celular;
 
+    public Contacto() {
+    }
 
-    public Contacto(String nombre, String celular, String email) {
+    public Contacto(String nombre, String codigo, String email, String celular) {
         this.nombre = nombre;
-        this.celular = celular;
+        this.codigo = codigo;
         this.email = email;
+        this.celular = celular;
     }
 
     public String getId() {
@@ -31,6 +33,22 @@ public class Contacto {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getEmail() {
@@ -49,12 +67,5 @@ public class Contacto {
         this.celular = celular;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }
- */

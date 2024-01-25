@@ -1,4 +1,4 @@
-/*
+
 package com.contactos.services;
 
 
@@ -10,7 +10,11 @@ import org.springframework.stereotype.Repository;
 public interface ContactoRepository extends MongoRepository<Contacto,String> {
 
     public Contacto findByNombre(String nombre);
-    public Contacto findByCedula(String cedula);
+    public Contacto findByEmail(String email);
+    public Contacto findByCodigo(String codigo);
+
+    public Contacto findByCelular(String celular);
+
 
 }
- */
+
